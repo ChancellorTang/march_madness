@@ -1,0 +1,50 @@
+,East,Midwest,West,South
+knn knn,Tennessee,Houston,Gonzaga,Baylor
+knn DT,Florida Atlantic,Xavier,Gonzaga,Missouri
+knn forest,Florida Atlantic,Houston,UCLA,Missouri
+knn mlp,Marquette,Houston,Iona,Missouri
+knn clf,Marquette,Xavier,Iona,Missouri
+knn gnb,Tennessee,Houston,UCLA,Baylor
+knn svc,Florida Atlantic,Houston,UCLA,College of Charleston
+DT knn,Tennessee,Houston,Arkansas,Baylor
+DT DT,Tennessee,Texas,Arkansas,Alabama
+DT forest,Tennessee,Houston,Arkansas,Missouri
+DT mlp,Purdue,Houston,Arkansas,Missouri
+DT clf,Marquette,Houston,Arkansas,Missouri
+DT gnb,Purdue,Houston,Arkansas,Alabama
+DT svc,Purdue,Houston,Arkansas,Alabama
+forest knn,Duke,Houston,Connecticut,Baylor
+forest DT,Memphis,Texas,UCLA,Baylor
+forest forest,Memphis,Houston,UCLA,Alabama
+forest mlp,Memphis,Houston,Connecticut,Baylor
+forest clf,Duke,Houston,Connecticut,Baylor
+forest gnb,Memphis,Houston,Connecticut,Alabama
+forest svc,Memphis,Houston,UCLA,Alabama
+mlp knn,Tennessee,Houston,Gonzaga,College of Charleston
+mlp DT,Florida Atlantic,Xavier,Gonzaga,Alabama
+mlp forest,Florida Atlantic,Houston,UCLA,Alabama
+mlp mlp,Marquette,Houston,Connecticut,Missouri
+mlp clf,Marquette,Xavier,Connecticut,Missouri
+mlp gnb,Tennessee,Houston,Connecticut,Alabama
+mlp svc,Florida Atlantic,Houston,UCLA,Alabama
+clf knn,Tennessee,Houston,Arkansas,Alabama
+clf DT,Florida Atlantic,Texas,Arkansas,Alabama
+clf forest,Florida Atlantic,Houston,Arkansas,Missouri
+clf mlp,Marquette,Houston,Arkansas,Missouri
+clf clf,Providence,Houston,Arkansas,Missouri
+clf gnb,Tennessee,Houston,Arkansas,Alabama
+clf svc,Florida Atlantic,Houston,Arkansas,Alabama
+gnb knn,Tennessee,Pittsburgh,Boise St.,North Carolina St.
+gnb DT,Florida Atlantic,Houston,Kansas,Alabama
+gnb forest,Florida Atlantic,Houston,Kansas,Alabama
+gnb mlp,Marquette,Houston,Boise St.,North Carolina St.
+gnb clf,Providence,Pittsburgh,Boise St.,Utah St.
+gnb gnb,Tennessee,Houston,Kansas,Alabama
+gnb svc,Florida Atlantic,Houston,Kansas,Alabama
+svc knn,Tennessee,Houston,Gonzaga,North Carolina St.
+svc DT,Florida Atlantic,Texas,Gonzaga,Arizona
+svc forest,Florida Atlantic,Houston,UCLA,Alabama
+svc mlp,Marquette,Houston,Connecticut,Arizona
+svc clf,Marquette,Houston,Connecticut,Arizona
+svc gnb,Tennessee,Houston,Connecticut,Alabama
+svc svc,Florida Atlantic,Houston,UCLA,Arizona

@@ -1,0 +1,50 @@
+,East,Midwest,West,South
+knn knn,Auburn,Tennessee,Marquette,Arizona
+knn DT,Iowa St.,Creighton,Texas Tech,Arizona
+knn forest,Connecticut,Purdue,Houston,Mississippi St.
+knn mlp,Connecticut,Purdue,Houston,Mississippi St.
+knn clf,Iowa St.,Purdue,Houston,Mississippi St.
+knn gnb,Connecticut,Purdue,Houston,Mississippi St.
+knn svc,Connecticut,Purdue,Houston,Mississippi St.
+DT knn,BYU,Tennessee,Marquette,Clemson
+DT DT,BYU,Creighton,Texas Tech,Clemson
+DT forest,Connecticut,Purdue,Houston,Nevada
+DT mlp,Connecticut,Purdue,Houston,Clemson
+DT clf,Connecticut,Purdue,Houston,Clemson
+DT gnb,Connecticut,Purdue,Houston,Clemson
+DT svc,Connecticut,Purdue,Houston,Clemson
+forest knn,Auburn,Tennessee,Nebraska,Arizona
+forest DT,Iowa St.,Purdue,James Madison,Alabama
+forest forest,Connecticut,Purdue,Nebraska,Alabama
+forest mlp,Connecticut,Purdue,Kentucky,Alabama
+forest clf,Iowa St.,Purdue,Kentucky,Arizona
+forest gnb,Connecticut,Purdue,Kentucky,Colgate
+forest svc,Connecticut,Purdue,James Madison,Arizona
+mlp knn,BYU,Tennessee,Marquette,Arizona
+mlp DT,BYU,Creighton,Kentucky,Arizona
+mlp forest,Connecticut,Purdue,Houston,Michigan St.
+mlp mlp,Connecticut,Purdue,Houston,Michigan St.
+mlp clf,Iowa St.,Purdue,Houston,Michigan St.
+mlp gnb,Connecticut,Purdue,Houston,Michigan St.
+mlp svc,Connecticut,Purdue,Houston,Michigan St.
+clf knn,BYU,Tennessee,Marquette,Arizona
+clf DT,BYU,Creighton,Kentucky,Arizona
+clf forest,Connecticut,Purdue,Houston,Michigan St.
+clf mlp,Connecticut,Purdue,Houston,Michigan St.
+clf clf,Iowa St.,Purdue,Houston,Michigan St.
+clf gnb,Connecticut,Purdue,Houston,Michigan St.
+clf svc,Connecticut,Purdue,Houston,Michigan St.
+gnb knn,Connecticut,Purdue,Houston,Michigan St.
+gnb DT,BYU,Purdue,James Madison,Nevada
+gnb forest,Connecticut,Purdue,Colorado,Nevada
+gnb mlp,Connecticut,Purdue,Colorado,Nevada
+gnb clf,Connecticut,Purdue,Kentucky,New Mexico
+gnb gnb,Connecticut,Purdue,Houston,Nevada
+gnb svc,Connecticut,Purdue,Houston,Nevada
+svc knn,BYU,Tennessee,Marquette,Arizona
+svc DT,BYU,Creighton,Kentucky,Alabama
+svc forest,Connecticut,Purdue,Houston,Alabama
+svc mlp,Connecticut,Purdue,Houston,Alabama
+svc clf,Iowa St.,Purdue,Houston,Arizona
+svc gnb,Connecticut,Purdue,Houston,Arizona
+svc svc,Connecticut,Purdue,Houston,Alabama
