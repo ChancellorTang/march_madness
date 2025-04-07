@@ -1,0 +1,50 @@
+,East,Midwest,West,South
+knn knn,Duke,Florida,Auburn,Purdue
+knn DT,Duke,Florida,Auburn,Tennessee
+knn forest,Duke,Florida,Auburn,Tennessee
+knn mlp,Duke,Florida,Auburn,Houston
+knn clf,Duke,Florida,North Carolina,Houston
+knn gnb,Duke,Florida,Auburn,Houston
+knn svc,Duke,Florida,Auburn,Houston
+DT knn,Duke,Florida,Auburn,Houston
+DT DT,Duke,Florida,Auburn,Houston
+DT forest,Duke,Florida,Auburn,Clemson
+DT mlp,Duke,Florida,Auburn,Houston
+DT clf,Duke,Florida,Auburn,Houston
+DT gnb,Duke,Florida,Auburn,Houston
+DT svc,Duke,Florida,Auburn,Houston
+forest knn,Duke,Florida,UC San Diego,Kentucky
+forest DT,Duke,Florida,Louisville,Tennessee
+forest forest,Duke,Florida,UC San Diego,Clemson
+forest mlp,Duke,Florida,Louisville,Houston
+forest clf,Duke,Florida,Louisville,Houston
+forest gnb,Duke,Florida,Louisville,Houston
+forest svc,Duke,Florida,Louisville,Houston
+mlp knn,Duke,Florida,Auburn,Purdue
+mlp DT,Duke,Florida,Auburn,Tennessee
+mlp forest,Duke,Florida,Auburn,Tennessee
+mlp mlp,Duke,Florida,Auburn,Houston
+mlp clf,Duke,Florida,UC San Diego,Houston
+mlp gnb,Duke,Florida,Auburn,Houston
+mlp svc,Duke,Florida,Auburn,Houston
+clf knn,Duke,Florida,Auburn,Purdue
+clf DT,Duke,Florida,Auburn,Tennessee
+clf forest,Duke,Florida,Auburn,Tennessee
+clf mlp,Duke,Florida,Auburn,Houston
+clf clf,Duke,Florida,UC San Diego,Houston
+clf gnb,Duke,Florida,Auburn,Houston
+clf svc,Duke,Florida,Auburn,Houston
+gnb knn,VCU,Florida,Auburn,Houston
+gnb DT,Duke,Florida,Auburn,Tennessee
+gnb forest,Duke,Florida,Auburn,Tennessee
+gnb mlp,Duke,Florida,Auburn,Houston
+gnb clf,Duke,Florida,North Carolina,Houston
+gnb gnb,Duke,Florida,Auburn,Houston
+gnb svc,Duke,Florida,Auburn,Houston
+svc knn,Duke,Florida,Auburn,Purdue
+svc DT,Duke,Florida,Auburn,Tennessee
+svc forest,Duke,Florida,Michigan,Tennessee
+svc mlp,Duke,Florida,Auburn,Houston
+svc clf,Duke,Florida,North Carolina,Houston
+svc gnb,Duke,Florida,Auburn,Houston
+svc svc,Duke,Florida,Auburn,Houston
