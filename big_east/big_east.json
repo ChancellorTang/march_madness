@@ -62,7 +62,7 @@
   "2021": [
     ["Villanova", 2],
     ["Creighton", 4],
-    ["UConn", 3],
+    ["Connecticut", 3],
     ["St. John's", 2],
     ["Seton Hall", 3],
     ["Providence", 1],
@@ -75,7 +75,7 @@
   "2022": [
     ["Providence", 3],
     ["Villanova", 5],
-    ["UConn", 3],
+    ["Connecticut", 3],
     ["Creighton", 4],
     ["Marquette", 2],
     ["Seton Hall", 2],
@@ -89,7 +89,7 @@
     ["Marquette", 5],
     ["Xavier", 4],
     ["Creighton", 3],
-    ["UConn", 3],
+    ["Connecticut", 3],
     ["Providence", 2],
     ["Villanova", 2],
     ["Seton Hall", 1],
@@ -99,7 +99,7 @@
     ["Georgetown", 1]
   ],
   "2024": [
-    ["UConn", 5],
+    ["Connecticut", 5],
     ["Creighton", 2],
     ["Marquette", 4],
     ["Seton Hall", 2],
@@ -114,7 +114,7 @@
   "2025": [
     ["St. John's", 5],
     ["Creighton", 4],
-    ["UConn", 3],
+    ["Connecticut", 3],
     ["Xavier", 2],
     ["Marquette", 3],
     ["Villanova", 2],
@@ -123,5 +123,18 @@
     ["Butler", 2],
     ["DePaul", 2],
     ["Seton Hall", 1]
+  ],
+    "2026": [
+    ["St. John's", 0],
+    ["Connecticut", 0],
+    ["Villanova", 0],
+    ["Seton Hall", 0],
+    ["Creighton", 0],
+    ["DePaul", 0],
+    ["Butler", 0],
+    ["Providence", 0],
+    ["Marquette", 0],
+    ["Georgetown", 0],
+    ["Xavier", 0]
   ]
 }

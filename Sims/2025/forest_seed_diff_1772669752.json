@@ -343,8 +343,8 @@
             "region": "east"
         },
         {
-            "SEED": 12,
-            "TEAM": "Liberty",
+            "SEED": 5,
+            "TEAM": "Oregon",
             "region": "east"
         },
         {
@@ -358,8 +358,8 @@
             "region": "east"
         },
         {
-            "SEED": 9,
-            "TEAM": "Baylor",
+            "SEED": 8,
+            "TEAM": "Mississippi St.",
             "region": "east"
         },
         {
@@ -383,13 +383,13 @@
             "region": "south"
         },
         {
-            "SEED": 12,
-            "TEAM": "UC San Diego",
+            "SEED": 5,
+            "TEAM": "Michigan",
             "region": "south"
         },
         {
-            "SEED": 11,
-            "TEAM": "North Carolina",
+            "SEED": 6,
+            "TEAM": "Mississippi",
             "region": "south"
         },
         {
@@ -423,8 +423,8 @@
             "region": "west"
         },
         {
-            "SEED": 12,
-            "TEAM": "Colorado St.",
+            "SEED": 5,
+            "TEAM": "Memphis",
             "region": "west"
         },
         {
@@ -473,8 +473,8 @@
             "region": "midwest"
         },
         {
-            "SEED": 10,
-            "TEAM": "Utah St",
+            "SEED": 7,
+            "TEAM": "UCLA",
             "region": "midwest"
         },
         {
@@ -495,13 +495,13 @@
             "region": "east"
         },
         {
-            "SEED": 11,
-            "TEAM": "VCU",
+            "SEED": 3,
+            "TEAM": "Wisconsin",
             "region": "east"
         },
         {
-            "SEED": 12,
-            "TEAM": "Liberty",
+            "SEED": 4,
+            "TEAM": "Arizona",
             "region": "east"
         },
         {
@@ -520,8 +520,8 @@
             "region": "south"
         },
         {
-            "SEED": 12,
-            "TEAM": "UC San Diego",
+            "SEED": 4,
+            "TEAM": "Texas A&M",
             "region": "south"
         },
         {
@@ -535,8 +535,8 @@
             "region": "west"
         },
         {
-            "SEED": 3,
-            "TEAM": "Texas Tech",
+            "SEED": 6,
+            "TEAM": "Missouri",
             "region": "west"
         },
         {
@@ -587,8 +587,8 @@
             "region": "south"
         },
         {
-            "SEED": 4,
-            "TEAM": "Maryland",
+            "SEED": 1,
+            "TEAM": "Florida",
             "region": "west"
         },
         {
@@ -597,20 +597,20 @@
             "region": "west"
         },
         {
-            "SEED": 4,
-            "TEAM": "Purdue",
+            "SEED": 1,
+            "TEAM": "Houston",
             "region": "midwest"
         },
         {
-            "SEED": 3,
-            "TEAM": "Kentucky",
+            "SEED": 2,
+            "TEAM": "Tennessee",
             "region": "midwest"
         }
     ],
     "4": [
         {
-            "SEED": 1,
-            "TEAM": "Duke",
+            "SEED": 2,
+            "TEAM": "Alabama",
             "region": "east"
         },
         {
@@ -619,33 +619,33 @@
             "region": "south"
         },
         {
-            "SEED": 2,
-            "TEAM": "St. John\u2019s",
+            "SEED": 1,
+            "TEAM": "Florida",
             "region": "west"
         },
         {
-            "SEED": 4,
-            "TEAM": "Purdue",
+            "SEED": 1,
+            "TEAM": "Houston",
             "region": "midwest"
         }
     ],
     "2": [
         {
             "SEED": 1,
-            "TEAM": "Duke",
-            "region": "east"
+            "TEAM": "Houston",
+            "region": "midwest"
         },
         {
             "SEED": 1,
-            "TEAM": "Auburn",
-            "region": "south"
+            "TEAM": "Florida",
+            "region": "west"
         }
     ],
     "1": [
         {
             "SEED": 1,
-            "TEAM": "Duke",
-            "region": "east"
+            "TEAM": "Houston",
+            "region": "midwest"
         }
     ]
 }

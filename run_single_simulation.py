@@ -11,13 +11,29 @@ current_year = datetime.now().year - 1
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--year', type=int, help='Year to process', default=current_year)
 parser.add_argument('--model', type=str, help='Model to use for prediction', default='knn')
-parser.add_argument('--sim-type', type=str, help='Type of simulation to run', default='master')
+parser.add_argument('--sim_type', type=str, help='Type of simulation to run', default='master', choices=['master', 'weeks', 'seed_diff'])
 args = parser.parse_args()
 
 model_types = ['knn', 'DT', 'forest', 'mlp', 'clf', 'gnb', 'svc']
 
 scaler = joblib.load('models/my_scaler.pkl')  # load from disk
-master = joblib.load('models/{}/master.pkl'.format(args.model))  # load from disk
+
+sim_type = args.sim_type
+
+match sim_type:
+    case "master":
+        master = joblib.load('models/{}/master.pkl'.format(args.model))  # load from disk
+    case "weeks":
+        w1 = joblib.load('models/{}/w1.pkl'.format(args.model))  # load from disk
+        w2 = joblib.load('models/{}/w2.pkl'.format(args.model))  # load from disk
+        ff = joblib.load('models/{}/ff.pkl'.format(args.model))  # load from disk
+
+    case "seed_diff":
+        big = joblib.load('models/{}/big.pkl'.format(args.model))  # load from disk
+        little = joblib.load('models/{}/little.pkl'.format(args.model))  # load from disk
+        comp = joblib.load('models/{}/comp.pkl'.format(args.model))  # load from disk
+        seed_cutoff_high = -4
+        seed_cutoff_low = -7
 
 
 def scale(df):
@@ -100,8 +116,28 @@ test_df = pd.DataFrame(columns = train_columns)
 y_pred = []
 matchup_list = []
 
+def seed_diff_sim(holder, scaled, round):
+    if holder.iloc[0]["SEED"] < seed_cutoff_high:
+        ups = big.predict(scaled)
+    elif  holder.iloc[0]["SEED"] > seed_cutoff_low:
+        ups = little.predict(scaled)
+    else:
+        ups = comp.predict(scaled)
+    return int(ups[0])
+
+def master_sim(holder, scaled, round):
+        return int(master.predict(scaled)[0])
+
+def weeks_sim(holder, scaled, round):
+    if round in [0, 1]:
+        return int(w1.predict(scaled)[0])
+    elif round in [2, 3]:
+        return int(w2.predict(scaled)[0])
+    else:
+        return int(ff.predict(scaled)[0])
+
 # compacted implementation for rounds and finals
-def play_one_match(h, l):
+def play_one_match(h, l, round, sim = sim_type):
     """Return (winner_row, holder_df, matchup_str, prediction_int)."""
     holder = pd.DataFrame([get_upset_differences(h, l)], columns=train_columns)
     # ensure holder is oriented so that lower SEED corresponds to label 1 as before
@@ -109,10 +145,12 @@ def play_one_match(h, l):
         holder = -holder
         h, l = l, h
     scaled = scale(holder)
-    pred = int(master.predict(scaled)[0])
+    pred = globals()[f"{sim}_sim"](holder, scaled, round)
     winner = h if pred == 0 else l
     matchup = f"{h['TEAM']} vs. {l['TEAM']}"
     return winner, holder, matchup, pred
+
+
 
 def run_rounds(start_df, n_rounds):
     """
@@ -128,7 +166,7 @@ def run_rounds(start_df, n_rounds):
         for i in range(len(cur) // 2):
             h = cur.iloc[i]
             l = cur.iloc[-i-1]
-            winner, holder, matchup, pred = play_one_match(h, l)
+            winner, holder, matchup, pred = play_one_match(h, l, _, sim_type)
             winners.append(winner)
             # update global tracking structures
             globals()['test_df'] = pd.concat([globals()['test_df'], holder], ignore_index=True)
@@ -174,5 +212,5 @@ for df in [r64_r, r32_r, s16_r, e8_r, f4_r, c2_r, winner_r]:
 
 
 
-with open(f"./Sims/{current_year}/{args.model}_{str(now)}.json", 'w') as f:
+with open(f"./Sims/{current_year}/{args.model}_{sim_type}_{str(now)}.json", 'w') as f:
     json.dump(sim_json, f, indent=4)
