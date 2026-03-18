@@ -6,7 +6,7 @@ import json
 master_df = pd.read_csv("master_ncaa.csv")
 
 # %%
-train_years = [13,14,15,16,17,18,19,21,22,23,24]
+train_years = [13,14,15,16,17,18,19,21,22,23,24,25]
 regions = ['east','south','midwest','west']
 
 # %%
@@ -154,7 +154,7 @@ for x in range(0,len(round_name)):
 
 
 # %%
-with open("final_four.json", "r") as file:
+with open("data/final_four.json", "r") as file:
     f4 = json.load(file)
 
 # %%

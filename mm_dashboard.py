@@ -5,7 +5,7 @@ import plotly.express as px
 from pathlib import Path
 
 # ── Config ────────────────────────────────────────────────────────────────────
-SIMS_DIR = Path("./Sims/2025/")
+SIMS_DIR = Path("./Sims/2026/")
 
 st.set_page_config(
     page_title="Tournament Sim Dashboard",
@@ -132,7 +132,7 @@ if not all_sims:
 df = build_dataframe(all_sims)
 n_sims   = df.sim.nunique()
 n_teams  = df[df["rnd"] == 64].team.nunique()
-all_regions = sorted(df.region.unique())
+all_regions = sorted([r for r in df.region.unique() if r and r != "Unknown"])
 
 # ── Sidebar filters ───────────────────────────────────────────────────────────
 with st.sidebar:
@@ -140,11 +140,10 @@ with st.sidebar:
     st.markdown(f"**{n_sims}** simulations · **{n_teams}** teams")
     st.markdown("---")
     st.markdown("### 🔍 Filters")
-    sel_regions = st.multiselect("Regions", all_regions, default=all_regions)
+    sel_region = st.selectbox("Select Region (Tab 1)", all_regions, index=0)
     seed_range  = st.slider("Seed range", 1, 16, (1, 16))
-    top_n       = st.slider("Top N teams in charts", 5, 32, 16)
 
-df_f = df[df.region.isin(sel_regions) & df.seed.between(*seed_range)]
+df_f = df[df.seed.between(*seed_range)]
 
 # ── Reach % helper ────────────────────────────────────────────────────────────
 def reach_pct(groupby_cols, data=None):
@@ -190,208 +189,132 @@ for col, val, lbl in [
 st.markdown("<br>", unsafe_allow_html=True)
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
-tab_region, tab_seed = st.tabs(["🌍 Region Breakdown", "🌱 Seed Performance"])
+tab_region, tab_finals = st.tabs(["🌍 By Region (R64-FF)", "🏆 Finals (CG-Winner)"])
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# TAB 1 – REGION BREAKDOWN
+# TAB 1 – BY REGION (R64 to FINAL FOUR)
 # ═══════════════════════════════════════════════════════════════════════════════
 with tab_region:
-    def reach_pct(groupby_cols, data=None, as_pct=True):
-        d = (data if data is not None else df_f)
-        d = d[d["rnd"].isin(ROUND_ORDER)]
-        # number of unique sims where the group is present at each round
-        counts = (
-            d.groupby(groupby_cols + ["rnd"])
-            .sim.nunique()
-            .reset_index(name="count")
-        )
-        counts["round_short"] = counts["rnd"].map(lambda r: ROUND_META[r]["short"])
-        counts["round_name"]  = counts["rnd"].map(lambda r: ROUND_META[r]["name"])
-        counts["round_order"] = counts["rnd"].map(lambda r: ROUND_ORDER.index(r))
-        if as_pct:
-            counts["pct"] = counts["count"].div(n_sims).mul(100)
-        return counts
-
-    # Top teams per region drill-down
-    st.subheader("Top teams per region")
-    sel_region_detail = st.selectbox("Select a region", all_regions)
-
-    # get both counts and pct (counts = number of sims the team reached that round)
-    team_reach = reach_pct(
-        ["team", "seed", "region"],
-        data=df_f[df_f.region == sel_region_detail],
-        as_pct=True,
+    st.subheader(f"Teams & Seeds by Round — {sel_region}")
+    
+    # Filter data for selected region and rounds up to FF (4)
+    df_region = df_f[(df_f.region == sel_region) & (df_f.rnd >= 4)]
+    
+    # Build pivot table: teams/seeds as rows, rounds as columns, counts as values
+    team_round_counts = (
+        df_region.groupby(["team", "seed", "rnd"])
+        .sim.nunique()
+        .reset_index(name="count")
     )
-
-    # pivot to show counts per team by round (counts are 0..n_sims)
-    pivot_team = team_reach.pivot_table(
+    
+    pivot_region = team_round_counts.pivot_table(
         index=["team", "seed"],
-        columns="round_short",
+        columns="rnd",
         values="count",
         fill_value=0,
     )
-
-    # ensure columns are in the expected round order
-    ordered_shorts = [ROUND_META[r]["short"] for r in ROUND_ORDER if ROUND_META[r]["short"] in pivot_team.columns]
-    pivot_team = pivot_team[ordered_shorts]
-
-    # make labels nicer for display and sort teams by total appearances
-    pivot_team["total"] = pivot_team.sum(axis=1)
-    pivot_team = pivot_team.sort_values("total", ascending=False)
-    pivot_team = pivot_team.drop(columns=["total"])
-
-    st.markdown(f"Showing counts out of {n_sims} simulations — cells = number of sims the team reached that round.")
-
-    # convert MultiIndex to a single string index "Team (seed)" so plotly shows names
-    pivot_team.index = [f"{team} ({seed})" for team, seed in pivot_team.index]
-    y_labels = pivot_team.index.tolist()
-
-    fig5 = px.imshow(
-        pivot_team,
-        color_continuous_scale="YlOrRd",
-        labels=dict(color="Sims"),
-        text_auto=True,
-        aspect="auto",
-    )
-    fig5.update_layout(
-        height=max(300, 28 * len(pivot_team)),
-        yaxis_title="Team (seed)",
-        xaxis_title="Round",
-        **PLOT_LAYOUT,
-    )
-    # hover shows the team label (since the y-axis now uses the string index)
-    fig5.update_traces(hovertemplate="Team: %{y}<br>Round: %{x}<br>Sims: %{z}<extra></extra>")
-    st.plotly_chart(fig5, width='stretch')
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# TAB 2 – SEED PERFORMANCE
-# ═══════════════════════════════════════════════════════════════════════════════
-with tab_seed:
-
-    # 2a. Seed × Round matrix
-    st.subheader("Seed × Round advancement matrix (% of simulations)")
-    seed_reach = reach_pct(["seed"])
-    pivot_sr = seed_reach.pivot_table(index="seed", columns="rnd", values="pct", fill_value=0)
-    pivot_sr = pivot_sr[[c for c in ROUND_ORDER if c in pivot_sr.columns]]
-    pivot_sr.columns = [ROUND_META[c]["short"] for c in pivot_sr.columns]
-    pivot_sr = pivot_sr.loc[pivot_sr.index.isin(range(seed_range[0], seed_range[1] + 1))]
-    fig6 = px.imshow(
-        pivot_sr, color_continuous_scale="Blues",
-        labels=dict(color="% Sims"), aspect="auto", text_auto=".0f",
-    )
-    fig6.update_layout(height=460, coloraxis_colorbar=dict(title="% Sims"), **PLOT_LAYOUT)
-    st.plotly_chart(fig6, width='stretch')
-
-    col_c, col_d = st.columns(2)
-
-    # 2b. Average round depth per seed
-    with col_c:
-        st.subheader("Average round depth by seed")
-        avg_depth = (
-            df_f[df_f["rnd"].isin(ROUND_ORDER)]
-            .groupby(["sim", "seed"])["rnd"].max()
-            .map(ROUND_DEPTH).reset_index()
-            .groupby("seed")["rnd"].mean()
-            .reset_index(name="avg_depth")
-        )
-        avg_depth = avg_depth[avg_depth.seed.between(*seed_range)]
-        fig7 = px.bar(
-            avg_depth.sort_values("seed"),
-            x="seed", y="avg_depth", color="avg_depth",
-            color_continuous_scale="Viridis",
-            text=avg_depth.sort_values("seed").avg_depth.map(lambda v: f"{v:.2f}"),
-            labels={"avg_depth": "Avg Round Depth", "seed": "Seed"},
-        )
-        fig7.update_traces(textposition="outside")
-        fig7.update_layout(
-            height=380, showlegend=False,
-            xaxis=dict(dtick=1),
-            yaxis=dict(range=[0, avg_depth.avg_depth.max() * 1.2]),
-            **PLOT_LAYOUT,
-        )
-        st.plotly_chart(fig7, width='stretch')
-
-    # 2c. Champion % per seed
-    with col_d:
-        st.subheader("Champion probability by seed")
-        champ_seed = (
-            df_f[df_f["rnd"] == 1]
-            .groupby("seed").sim.nunique()
-            .div(n_sims).mul(100)
-            .reset_index(name="pct")
-        )
-        champ_seed = champ_seed[champ_seed.seed.between(*seed_range)]
-        fig8 = px.bar(
-            champ_seed.sort_values("seed"),
-            x="seed", y="pct", color="pct",
-            color_continuous_scale="Reds",
-            text=champ_seed.sort_values("seed").pct.map(lambda v: f"{v:.1f}%"),
-            labels={"pct": "% Champion", "seed": "Seed"},
-        )
-        fig8.update_traces(textposition="outside")
-        fig8.update_layout(
-            height=380, showlegend=False,
-            xaxis=dict(dtick=1),
-            yaxis=dict(range=[0, champ_seed.pct.max() * 1.25]),
-            **PLOT_LAYOUT,
-        )
-        st.plotly_chart(fig8, width='stretch')
-
-    # 2d. Seed champion % split by region
-    st.subheader("Champion probability — seed × region")
-    seed_reg_champ = (
-        df_f[df_f["rnd"] == 1]
-        .groupby(["seed", "region"]).sim.nunique()
-        .div(n_sims).mul(100)
-        .reset_index(name="pct")
-    )
-    seed_reg_champ = seed_reg_champ[seed_reg_champ.seed.between(*seed_range)]
-    fig9 = px.bar(
-        seed_reg_champ.sort_values("seed"),
-        x="seed", y="pct", color="region",
-        barmode="group",
-        labels={"pct": "% Champion", "seed": "Seed", "region": "Region"},
-    )
-    fig9.update_layout(height=380, xaxis=dict(dtick=1), **PLOT_LAYOUT)
-    st.plotly_chart(fig9, width='stretch')
-
-    # 2e. Upset tracker
-    st.subheader("Upset tracker — high-seed deep runs")
-    upset_thresh = st.slider("Show seeds ≥", 5, 16, 10)
-    upsets = (
-        df_f[df_f["rnd"].isin(ROUND_ORDER) & (df_f.seed >= upset_thresh)]
-        .groupby(["team", "seed", "region", "rnd"]).sim.nunique()
-        .div(n_sims).mul(100)
-        .reset_index(name="pct")
-    )
-    upsets = upsets[upsets.pct > 0]
-    best_upset = (
-        upsets.sort_values(["rnd", "pct"], ascending=[False, False])
-        .groupby("team").first().reset_index()
-        .sort_values(["rnd", "pct"], ascending=[False, False])
-        .head(top_n)
-    )
-    best_upset["label"] = best_upset.apply(
-        lambda r: f"({r['seed']}) {r['team']} — {ROUND_META[r['rnd']]['name']}", axis=1
-    )
-    if best_upset.empty:
-        st.info("No upsets found for the selected seed threshold.")
+    
+    # Ensure columns are in round order and only include rounds >= 4 (FF and earlier)
+    included_rounds = [r for r in ROUND_ORDER if r >= 4]
+    pivot_region = pivot_region[[c for c in included_rounds if c in pivot_region.columns]]
+    pivot_region.columns = [ROUND_META[c]["short"] for c in pivot_region.columns]
+    
+    # Sort by seed ascending
+    pivot_region = pivot_region.sort_index(level='seed', ascending=True)
+    
+    # Reset index to get team/seed in columns
+    pivot_region_df = pivot_region.reset_index()
+    
+    # Format for display
+    display_df = pivot_region_df.set_index(['team', 'seed'])
+    display_df.index = [f"{seed}. {team}" for team, seed in display_df.index]
+    display_df = display_df.astype(int)
+    
+    if display_df.empty:
+        st.info("No teams match the selected filter.")
     else:
-        fig10 = px.bar(
-            best_upset, x="pct", y="label", orientation="h",
-            color="seed", color_continuous_scale="Oranges_r",
-            text=best_upset.pct.map(lambda v: f"{v:.1f}%"),
-            labels={"pct": "% Sims Reached", "label": ""},
+        st.markdown(f"Showing counts out of {n_sims} simulations — cells = number of sims the team reached that round.")
+        st.dataframe(display_df, use_container_width=True)
+        
+        # Heatmap visualization
+        fig_region = px.imshow(
+            display_df,
+            color_continuous_scale="YlOrRd",
+            labels=dict(color="Sims"),
+            text_auto=True,
+            aspect="auto",
         )
-        fig10.update_traces(textposition="outside")
-        fig10.update_layout(
-            height=max(350, 28 * len(best_upset)),
-            yaxis=dict(categoryorder="total ascending"),
-            margin=dict(t=10, r=70, b=40),
-            **{k: v for k, v in PLOT_LAYOUT.items() if k != "margin"},
+        fig_region.update_layout(
+            height=max(300, 28 * len(display_df)),
+            yaxis_title="Team (seed)",
+            xaxis_title="Round",
+            **PLOT_LAYOUT,
         )
-        st.plotly_chart(fig10, width='stretch')
+        fig_region.update_traces(hovertemplate="Team: %{y}<br>Round: %{x}<br>Sims: %{z}<extra></extra>")
+        st.plotly_chart(fig_region, use_container_width=True)
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TAB 2 – FINALS (CHAMPIONSHIP GAME & WINNER)
+# ═══════════════════════════════════════════════════════════════════════════════
+with tab_finals:
+    st.subheader("Teams & Seeds — Championship Game & Winner")
+    
+    # Filter data for CG (round 2) and Winner (round 1)
+    df_finals = df_f[df_f.rnd.isin([2, 1])]
+    
+    # Build pivot table: teams/seeds as rows, rounds as columns, counts as values
+    team_finals_counts = (
+        df_finals.groupby(["team", "seed", "rnd"])
+        .sim.nunique()
+        .reset_index(name="count")
+    )
+    
+    pivot_finals = team_finals_counts.pivot_table(
+        index=["team", "seed"],
+        columns="rnd",
+        values="count",
+        fill_value=0,
+    )
+    
+    # Ensure proper column order (CG first, then Winner)
+    pivot_finals = pivot_finals[[c for c in [2, 1] if c in pivot_finals.columns]]
+    pivot_finals.columns = [ROUND_META[c]["short"] for c in [2, 1] if c in pivot_finals.columns]
+    
+    # Sort by seed ascending
+    pivot_finals = pivot_finals.sort_index(level='seed', ascending=True)
+    
+    # Reset index to get team/seed in columns
+    pivot_finals_df = pivot_finals.reset_index()
+    
+    # Format for display
+    display_df_finals = pivot_finals_df.set_index(['team', 'seed'])
+    display_df_finals.index = [f"{seed}. {team}" for team, seed in display_df_finals.index]
+    display_df_finals = display_df_finals.astype(int)
+    
+    if display_df_finals.empty:
+        st.info("No teams match the selected filter.")
+    else:
+        st.markdown(f"Showing counts out of {n_sims} simulations — cells = number of sims the team reached that round.")
+        st.dataframe(display_df_finals, use_container_width=True)
+        
+        # Heatmap visualization
+        fig_finals = px.imshow(
+            display_df_finals,
+            color_continuous_scale="Purples",
+            labels=dict(color="Sims"),
+            text_auto=True,
+            aspect="auto",
+        )
+        fig_finals.update_layout(
+            height=max(300, 28 * len(display_df_finals)),
+            yaxis_title="Team (seed)",
+            xaxis_title="Round",
+            **PLOT_LAYOUT,
+        )
+        fig_finals.update_traces(hovertemplate="Team: %{y}<br>Round: %{x}<br>Sims: %{z}<extra></extra>")
+        st.plotly_chart(fig_finals, use_container_width=True)
 
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("---")

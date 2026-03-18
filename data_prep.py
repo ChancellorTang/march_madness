@@ -1,8 +1,16 @@
 import pandas as pd
 import json
+import sys
 
-with open("data/regions.json", "r") as file:
-    regions = json.load(file)
+try:
+    with open("data/regions.json", "r") as file:
+        regions = json.load(file)
+except json.JSONDecodeError as e:
+    print(f"✗ Invalid JSON in data/regions.json")
+    print(f"  Error at line {e.lineno}, column {e.colno}: {e.msg}")
+    print(f"\n  Run this to fix it:")
+    print(f"  python fix_regions_json.py")
+    sys.exit(1)
 
 def power_conf(df):
     test_list = []
@@ -60,12 +68,13 @@ new_columns = ['TEAM',
  "POWER",
  'YEAR']
 
-ncaam = pd.read_csv('data/cbb.csv')
-ncaam21 = pd.read_csv('data/cbb21.csv')
-ncaam22 = pd.read_csv('data/cbb22.csv')
-ncaam23 = pd.read_csv('data/cbb23.csv')
-ncaam24 = pd.read_csv('data/cbb24.csv')
-ncaam25 = pd.read_csv('data/cbb25.csv')
+ncaam = pd.read_csv('data/tr/cbb.csv')
+ncaam21 = pd.read_csv('data/tr/cbb21.csv')
+ncaam22 = pd.read_csv('data/tr/cbb22.csv')
+ncaam23 = pd.read_csv('data/tr/cbb23.csv')
+ncaam24 = pd.read_csv('data/tr/cbb24.csv')
+ncaam25 = pd.read_csv('data/tr/cbb25.csv')
+ncaam26 = pd.read_csv('data/tr/cbb26.csv')
 
 ncaam = format_ncaa_df(ncaam)
 ncaam19 = ncaam[ncaam['YEAR']==2019]
@@ -80,6 +89,7 @@ ncaam22 = format_ncaa_df(ncaam22, 2022)
 ncaam23 = format_ncaa_df(ncaam23, 2023)
 ncaam24 = format_ncaa_df(ncaam24, 2024)
 ncaam25 = format_ncaa_df(ncaam25, 2025)
+ncaam26 = format_ncaa_df(ncaam26, 2026)
 
 def assign_dummy(df):
     dummy_df = []
@@ -99,7 +109,7 @@ def region_df(x,y,z):
 
 master_df = pd.DataFrame()
 
-all_years = [13,14,15,16,17,18,19,21,22,23,24,25]
+all_years = [13,14,15,16,17,18,19,21,22,23,24,25,26]
 
 legs = ["east",'south', 'midwest', 'west']
 

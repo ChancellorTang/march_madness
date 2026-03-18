@@ -1,0 +1,651 @@
+{
+    "64": [
+        {
+            "SEED": 1,
+            "TEAM": "Duke",
+            "region": "east"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Alabama",
+            "region": "east"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Wisconsin",
+            "region": "east"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Arizona",
+            "region": "east"
+        },
+        {
+            "SEED": 5,
+            "TEAM": "Oregon",
+            "region": "east"
+        },
+        {
+            "SEED": 6,
+            "TEAM": "BYU",
+            "region": "east"
+        },
+        {
+            "SEED": 7,
+            "TEAM": "Saint Mary\u2019s",
+            "region": "east"
+        },
+        {
+            "SEED": 8,
+            "TEAM": "Mississippi St.",
+            "region": "east"
+        },
+        {
+            "SEED": 9,
+            "TEAM": "Baylor",
+            "region": "east"
+        },
+        {
+            "SEED": 10,
+            "TEAM": "Vanderbilt",
+            "region": "east"
+        },
+        {
+            "SEED": 11,
+            "TEAM": "VCU",
+            "region": "east"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "Liberty",
+            "region": "east"
+        },
+        {
+            "SEED": 13,
+            "TEAM": "Akron",
+            "region": "east"
+        },
+        {
+            "SEED": 14,
+            "TEAM": "Montana",
+            "region": "east"
+        },
+        {
+            "SEED": 15,
+            "TEAM": "Robert Morris",
+            "region": "east"
+        },
+        {
+            "SEED": 16,
+            "TEAM": "Mount St. Mary\u2019s",
+            "region": "east"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Auburn",
+            "region": "south"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Michigan St.",
+            "region": "south"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Iowa St.",
+            "region": "south"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Texas A&M",
+            "region": "south"
+        },
+        {
+            "SEED": 5,
+            "TEAM": "Michigan",
+            "region": "south"
+        },
+        {
+            "SEED": 6,
+            "TEAM": "Mississippi",
+            "region": "south"
+        },
+        {
+            "SEED": 7,
+            "TEAM": "Marquette",
+            "region": "south"
+        },
+        {
+            "SEED": 8,
+            "TEAM": "Louisville",
+            "region": "south"
+        },
+        {
+            "SEED": 9,
+            "TEAM": "Creighton",
+            "region": "south"
+        },
+        {
+            "SEED": 10,
+            "TEAM": "New Mexico",
+            "region": "south"
+        },
+        {
+            "SEED": 11,
+            "TEAM": "North Carolina",
+            "region": "south"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "UC San Diego",
+            "region": "south"
+        },
+        {
+            "SEED": 13,
+            "TEAM": "Yale",
+            "region": "south"
+        },
+        {
+            "SEED": 14,
+            "TEAM": "Lipscomb",
+            "region": "south"
+        },
+        {
+            "SEED": 15,
+            "TEAM": "Bryant",
+            "region": "south"
+        },
+        {
+            "SEED": 16,
+            "TEAM": "Alabama St.",
+            "region": "south"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Florida",
+            "region": "west"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "St. John\u2019s",
+            "region": "west"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Texas Tech",
+            "region": "west"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Maryland",
+            "region": "west"
+        },
+        {
+            "SEED": 5,
+            "TEAM": "Memphis",
+            "region": "west"
+        },
+        {
+            "SEED": 6,
+            "TEAM": "Missouri",
+            "region": "west"
+        },
+        {
+            "SEED": 7,
+            "TEAM": "Kansas",
+            "region": "west"
+        },
+        {
+            "SEED": 8,
+            "TEAM": "Connecticut",
+            "region": "west"
+        },
+        {
+            "SEED": 9,
+            "TEAM": "Oklahoma",
+            "region": "west"
+        },
+        {
+            "SEED": 10,
+            "TEAM": "Arkansas",
+            "region": "west"
+        },
+        {
+            "SEED": 11,
+            "TEAM": "Drake",
+            "region": "west"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "Colorado St.",
+            "region": "west"
+        },
+        {
+            "SEED": 13,
+            "TEAM": "Grand Canyon",
+            "region": "west"
+        },
+        {
+            "SEED": 14,
+            "TEAM": "UNC Wilmington",
+            "region": "west"
+        },
+        {
+            "SEED": 15,
+            "TEAM": "Nebraska Omaha",
+            "region": "west"
+        },
+        {
+            "SEED": 16,
+            "TEAM": "Norfolk St.",
+            "region": "west"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Houston",
+            "region": "midwest"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Tennessee",
+            "region": "midwest"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Kentucky",
+            "region": "midwest"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Purdue",
+            "region": "midwest"
+        },
+        {
+            "SEED": 5,
+            "TEAM": "Clemson",
+            "region": "midwest"
+        },
+        {
+            "SEED": 6,
+            "TEAM": "Illinois",
+            "region": "midwest"
+        },
+        {
+            "SEED": 7,
+            "TEAM": "UCLA",
+            "region": "midwest"
+        },
+        {
+            "SEED": 8,
+            "TEAM": "Gonzaga",
+            "region": "midwest"
+        },
+        {
+            "SEED": 9,
+            "TEAM": "Georgia",
+            "region": "midwest"
+        },
+        {
+            "SEED": 10,
+            "TEAM": "Utah St",
+            "region": "midwest"
+        },
+        {
+            "SEED": 11,
+            "TEAM": "Xavier",
+            "region": "midwest"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "McNeese St.",
+            "region": "midwest"
+        },
+        {
+            "SEED": 13,
+            "TEAM": "High Point",
+            "region": "midwest"
+        },
+        {
+            "SEED": 14,
+            "TEAM": "Troy",
+            "region": "midwest"
+        },
+        {
+            "SEED": 15,
+            "TEAM": "Wofford",
+            "region": "midwest"
+        },
+        {
+            "SEED": 16,
+            "TEAM": "SIU Edwardsville",
+            "region": "midwest"
+        }
+    ],
+    "32": [
+        {
+            "SEED": 1,
+            "TEAM": "Duke",
+            "region": "east"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Alabama",
+            "region": "east"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Wisconsin",
+            "region": "east"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Arizona",
+            "region": "east"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "Liberty",
+            "region": "east"
+        },
+        {
+            "SEED": 11,
+            "TEAM": "VCU",
+            "region": "east"
+        },
+        {
+            "SEED": 7,
+            "TEAM": "Saint Mary\u2019s",
+            "region": "east"
+        },
+        {
+            "SEED": 8,
+            "TEAM": "Mississippi St.",
+            "region": "east"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Auburn",
+            "region": "south"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Michigan St.",
+            "region": "south"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Iowa St.",
+            "region": "south"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Texas A&M",
+            "region": "south"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "UC San Diego",
+            "region": "south"
+        },
+        {
+            "SEED": 11,
+            "TEAM": "North Carolina",
+            "region": "south"
+        },
+        {
+            "SEED": 7,
+            "TEAM": "Marquette",
+            "region": "south"
+        },
+        {
+            "SEED": 8,
+            "TEAM": "Louisville",
+            "region": "south"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Florida",
+            "region": "west"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "St. John\u2019s",
+            "region": "west"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Texas Tech",
+            "region": "west"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Maryland",
+            "region": "west"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "Colorado St.",
+            "region": "west"
+        },
+        {
+            "SEED": 6,
+            "TEAM": "Missouri",
+            "region": "west"
+        },
+        {
+            "SEED": 7,
+            "TEAM": "Kansas",
+            "region": "west"
+        },
+        {
+            "SEED": 8,
+            "TEAM": "Connecticut",
+            "region": "west"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Houston",
+            "region": "midwest"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Tennessee",
+            "region": "midwest"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Kentucky",
+            "region": "midwest"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Purdue",
+            "region": "midwest"
+        },
+        {
+            "SEED": 5,
+            "TEAM": "Clemson",
+            "region": "midwest"
+        },
+        {
+            "SEED": 6,
+            "TEAM": "Illinois",
+            "region": "midwest"
+        },
+        {
+            "SEED": 10,
+            "TEAM": "Utah St",
+            "region": "midwest"
+        },
+        {
+            "SEED": 8,
+            "TEAM": "Gonzaga",
+            "region": "midwest"
+        }
+    ],
+    "16": [
+        {
+            "SEED": 1,
+            "TEAM": "Duke",
+            "region": "east"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Alabama",
+            "region": "east"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Wisconsin",
+            "region": "east"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "Liberty",
+            "region": "east"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Auburn",
+            "region": "south"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Michigan St.",
+            "region": "south"
+        },
+        {
+            "SEED": 11,
+            "TEAM": "North Carolina",
+            "region": "south"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "UC San Diego",
+            "region": "south"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Florida",
+            "region": "west"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "St. John\u2019s",
+            "region": "west"
+        },
+        {
+            "SEED": 6,
+            "TEAM": "Missouri",
+            "region": "west"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Maryland",
+            "region": "west"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Houston",
+            "region": "midwest"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Tennessee",
+            "region": "midwest"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Kentucky",
+            "region": "midwest"
+        },
+        {
+            "SEED": 4,
+            "TEAM": "Purdue",
+            "region": "midwest"
+        }
+    ],
+    "8": [
+        {
+            "SEED": 12,
+            "TEAM": "Liberty",
+            "region": "east"
+        },
+        {
+            "SEED": 3,
+            "TEAM": "Wisconsin",
+            "region": "east"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "UC San Diego",
+            "region": "south"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Michigan St.",
+            "region": "south"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Florida",
+            "region": "west"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "St. John\u2019s",
+            "region": "west"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Houston",
+            "region": "midwest"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Tennessee",
+            "region": "midwest"
+        }
+    ],
+    "4": [
+        {
+            "SEED": 3,
+            "TEAM": "Wisconsin",
+            "region": "east"
+        },
+        {
+            "SEED": 12,
+            "TEAM": "UC San Diego",
+            "region": "south"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Florida",
+            "region": "west"
+        },
+        {
+            "SEED": 2,
+            "TEAM": "Tennessee",
+            "region": "midwest"
+        }
+    ],
+    "2": [
+        {
+            "SEED": 3,
+            "TEAM": "Wisconsin",
+            "region": "east"
+        },
+        {
+            "SEED": 1,
+            "TEAM": "Florida",
+            "region": "south"
+        }
+    ],
+    "1": [
+        {
+            "SEED": 1,
+            "TEAM": "Florida",
+            "region": "east"
+        }
+    ]
+}

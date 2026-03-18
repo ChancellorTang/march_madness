@@ -6,11 +6,17 @@ import numpy as np
 import joblib
 import json
 
-current_year = datetime.now().year - 1
+current_year = datetime.now().year
 
-parser = argparse.ArgumentParser(description='Process some integers.')
+parser = argparse.ArgumentParser(description='Run NCAA tournament simulation with model selection.')
 parser.add_argument('--year', type=int, help='Year to process', default=current_year)
-parser.add_argument('--model', type=str, help='Model to use for prediction', default='knn')
+parser.add_argument('--model', type=str, help='Model for master sim_type', default='knn')
+parser.add_argument('--w1_model', type=str, help='W1 model for weeks sim_type', default='knn')
+parser.add_argument('--w2_model', type=str, help='W2 model for weeks sim_type', default='knn')
+parser.add_argument('--ff_model', type=str, help='FF model for weeks sim_type', default='knn')
+parser.add_argument('--big_model', type=str, help='Big model for seed_diff sim_type', default='knn')
+parser.add_argument('--little_model', type=str, help='Little model for seed_diff sim_type', default='knn')
+parser.add_argument('--comp_model', type=str, help='Comp model for seed_diff sim_type', default='knn')
 parser.add_argument('--sim_type', type=str, help='Type of simulation to run', default='master', choices=['master', 'weeks', 'seed_diff'])
 args = parser.parse_args()
 
@@ -20,18 +26,35 @@ scaler = joblib.load('models/my_scaler.pkl')  # load from disk
 
 sim_type = args.sim_type
 
+# Validate models based on sim_type
+def validate_models(sim_type, args):
+    """Validate that specified models exist for the given sim_type."""
+    if sim_type == "master":
+        if args.model not in model_types:
+            sys.exit(f"Model '{args.model}' not recognized. Please choose from: {', '.join(model_types)}")
+    elif sim_type == "weeks":
+        for model_name in [args.w1_model, args.w2_model, args.ff_model]:
+            if model_name not in model_types:
+                sys.exit(f"Model '{model_name}' not recognized. Please choose from: {', '.join(model_types)}")
+    elif sim_type == "seed_diff":
+        for model_name in [args.big_model, args.little_model, args.comp_model]:
+            if model_name not in model_types:
+                sys.exit(f"Model '{model_name}' not recognized. Please choose from: {', '.join(model_types)}")
+
+validate_models(sim_type, args)
+
 match sim_type:
     case "master":
         master = joblib.load('models/{}/master.pkl'.format(args.model))  # load from disk
     case "weeks":
-        w1 = joblib.load('models/{}/w1.pkl'.format(args.model))  # load from disk
-        w2 = joblib.load('models/{}/w2.pkl'.format(args.model))  # load from disk
-        ff = joblib.load('models/{}/ff.pkl'.format(args.model))  # load from disk
+        w1 = joblib.load('models/{}/w1.pkl'.format(args.w1_model))  # load from disk
+        w2 = joblib.load('models/{}/w2.pkl'.format(args.w2_model))  # load from disk
+        ff = joblib.load('models/{}/ff.pkl'.format(args.ff_model))  # load from disk
 
     case "seed_diff":
-        big = joblib.load('models/{}/big.pkl'.format(args.model))  # load from disk
-        little = joblib.load('models/{}/little.pkl'.format(args.model))  # load from disk
-        comp = joblib.load('models/{}/comp.pkl'.format(args.model))  # load from disk
+        big = joblib.load('models/{}/big.pkl'.format(args.big_model))  # load from disk
+        little = joblib.load('models/{}/little.pkl'.format(args.little_model))  # load from disk
+        comp = joblib.load('models/{}/comp.pkl'.format(args.comp_model))  # load from disk
         seed_cutoff_high = -4
         seed_cutoff_low = -7
 
@@ -151,6 +174,15 @@ def play_one_match(h, l, round, sim = sim_type):
     return winner, holder, matchup, pred
 
 
+def get_filename_for_models(sim_type, args):
+    """Generate filename based on sim_type and models used."""
+    if sim_type == "master":
+        return f"{args.model}_{sim_type}"
+    elif sim_type == "weeks":
+        return f"w1_{args.w1_model}_w2_{args.w2_model}_ff_{args.ff_model}_{sim_type}"
+    elif sim_type == "seed_diff":
+        return f"big_{args.big_model}_little_{args.little_model}_comp_{args.comp_model}_{sim_type}"
+
 
 def run_rounds(start_df, n_rounds):
     """
@@ -203,8 +235,11 @@ winner_r = pd.concat([winner_r, final_rounds[2]], ignore_index=True)
 sim_json = {}
 for df in [r64_r, r32_r, s16_r, e8_r, f4_r, c2_r, winner_r]:
     if len(df) > 2:
-        repeats = int(len(df) / 4)
-        result = np.repeat(regions, repeats).tolist()
+        # Properly distribute teams across 4 regions
+        teams_per_region = len(df) // 4
+        result = []
+        for i in range(len(df)):
+            result.append(regions[i % 4])
         df['region'] = result
     else:
         df['region'] = None
@@ -212,5 +247,5 @@ for df in [r64_r, r32_r, s16_r, e8_r, f4_r, c2_r, winner_r]:
 
 
 
-with open(f"./Sims/{current_year}/{args.model}_{sim_type}_{str(now)}.json", 'w') as f:
+with open(f"./Sims/{current_year}/{get_filename_for_models(sim_type, args)}_{str(now)}.json", 'w') as f:
     json.dump(sim_json, f, indent=4)
